@@ -1,4 +1,4 @@
-# Gramfield: Distributed Spatiotemporal Field Reconstruction via Composable Spline Statistics
+# SplineMerge: Distributed Spatiotemporal Field Reconstruction via Composable Spline Statistics
 
 Source code for reproducing the experiments in the ICLR 2027 submission.
 
@@ -100,7 +100,7 @@ python utils/download_noaa_data.py   # first time only (downloads sst.mnmean.nc 
 python experiments/experiment_noaa_sst.py
 ```
 
-This applies the gramfield pipeline to real NOAA OI SST V2 monthly data
+This applies the splinemerge pipeline to real NOAA OI SST V2 monthly data
 over the tropical Pacific (30S-30N, 120E-280E), using spatial B-splines
 crossed with temporal Fourier+trend features. The distributed merge
 splits the domain into west Pacific (120-200E) and east Pacific
