@@ -1,0 +1,7 @@
+numpy
+scipy
+torch
+torchvision
+matplotlib
+netCDF4
+inkan>=0.4.2
