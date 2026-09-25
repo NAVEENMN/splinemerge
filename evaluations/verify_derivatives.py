@@ -150,7 +150,9 @@ def recover_wave_speed(u_tt, u_xx, u_yy):
     ATA = np.dot(lap, lap) + 1e-8
     ATb = np.dot(lap, b)
     c_sq = ATb / ATA
-    c_hat = np.sqrt(abs(c_sq))
+    if c_sq < 0:
+        return float('nan'), float('nan')
+    c_hat = np.sqrt(c_sq)
 
     residual = b - c_sq * lap
     rmse = np.sqrt(np.mean(residual**2))
@@ -379,7 +381,7 @@ def main():
     print(f"  and {D_pct_fd_exact:.4f}% error in diffusion-coefficient "
           f"recovery.")
     print("  Any reported sub-percent error from the full pipeline is a")
-    print("  combination of these two distinct sources:")
+    print("  combination of two non-independent sources:")
     print("    (a) finite-difference truncation error on the evaluation grid")
     print("    (b) spline approximation error in the fitted field")
     print("  These errors may reinforce or partially cancel, so the pipeline error is not simply the sum of the two.")
