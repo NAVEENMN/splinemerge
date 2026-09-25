@@ -1,5 +1,9 @@
 # SplineMerge: Exact Distributed Field Reconstruction via Composable Spline Statistics
 
+![SplineMerge Pipeline](pipeline.png)
+
+Each data holder fits a local B-spline field and transmits only its Gram matrix and moment vector. A single matrix solve produces the exact centralized solution. The resulting continuous field yields derivatives for physical parameter recovery.
+
 Source code for reproducing the experiments in the ICLR 2027 submission.
 
 ## Installation
