@@ -36,7 +36,7 @@ def make_basis_params(grid_size, grid_range):
     n_bases = grid_size + 3
     h = (grid_range[1] - grid_range[0]) / grid_size
     inv_h = 1.0 / h
-    grid_starts = torch.arange(n_bases).float() * h + grid_range[0] - 3 * h
+    grid_starts = torch.arange(n_bases, dtype=torch.float64) * h + grid_range[0] - 3 * h
     return grid_starts, inv_h, n_bases
 
 
@@ -103,8 +103,8 @@ def build_spatial_features(lat_pts, lon_pts, bp_lat, bp_lon):
 
     Returns: [N_ocean, K_lat * K_lon] in float64.
     """
-    lat_t = torch.tensor(lat_pts, dtype=torch.float32).unsqueeze(1)
-    lon_t = torch.tensor(lon_pts, dtype=torch.float32).unsqueeze(1)
+    lat_t = torch.tensor(lat_pts, dtype=torch.float64).unsqueeze(1)
+    lon_t = torch.tensor(lon_pts, dtype=torch.float64).unsqueeze(1)
 
     b_lat = eval_1d_basis(lat_t, bp_lat[0], bp_lat[1])  # [N, K_lat]
     b_lon = eval_1d_basis(lon_t, bp_lon[0], bp_lon[1])  # [N, K_lon]

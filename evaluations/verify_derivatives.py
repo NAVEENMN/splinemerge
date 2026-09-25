@@ -297,9 +297,9 @@ def main():
 
     import os
     wave_csv = os.path.join(os.path.dirname(__file__), "..",
-                            "..", "merge_pde_wave.csv")
+                            "merge_pde_wave.csv")
     diff_csv = os.path.join(os.path.dirname(__file__), "..",
-                            "..", "merge_pde_diffusion.csv")
+                            "merge_pde_diffusion.csv")
 
     if os.path.isfile(wave_csv):
         import csv
@@ -349,10 +349,6 @@ def main():
         print(f"  {'Wave: FD on spline fit (pipeline err)':<38} {'c':>8} "
               f"{C_TRUE_W:>8.4f} {c_spline:>10.6f} "
               f"{c_pct_spline:>7.4f}%")
-        c_spline_contrib = c_pct_spline - c_pct_fd_exact
-        print(f"  {'  -> spline contribution':<38} {'':>8} "
-              f"{'':>8} {'':>10} "
-              f"{c_spline_contrib:>+7.4f}%")
     else:
         print(f"  {'Wave: FD on spline fit (pipeline err)':<38} {'c':>8} "
               f"{C_TRUE_W:>8.4f} {c_spline_label:>10}")
@@ -370,10 +366,6 @@ def main():
         print(f"  {'Diff: FD on spline fit (pipeline err)':<38} {'D':>8} "
               f"{D_TRUE:>8.4f} {D_spline:>10.6f} "
               f"{D_pct_spline:>7.4f}%")
-        D_spline_contrib = D_pct_spline - D_pct_fd_exact
-        print(f"  {'  -> spline contribution':<38} {'':>8} "
-              f"{'':>8} {'':>10} "
-              f"{D_spline_contrib:>+7.4f}%")
     else:
         print(f"  {'Diff: FD on spline fit (pipeline err)':<38} {'D':>8} "
               f"{D_TRUE:>8.4f} {D_spline_label:>10}")
@@ -386,11 +378,11 @@ def main():
           f"in wave-speed recovery")
     print(f"  and {D_pct_fd_exact:.4f}% error in diffusion-coefficient "
           f"recovery.")
-    print("  Any reported sub-percent error from the full pipeline must")
-    print("  be understood as a combination of these two distinct sources:")
+    print("  Any reported sub-percent error from the full pipeline is a")
+    print("  combination of these two distinct sources:")
     print("    (a) finite-difference truncation error on the evaluation grid")
     print("    (b) spline approximation error in the fitted field")
-    print("  The table above separates them.")
+    print("  These errors may reinforce or partially cancel, so the pipeline error is not simply the sum of the two.")
 
 
 if __name__ == "__main__":

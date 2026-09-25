@@ -75,10 +75,14 @@ def make_basis_params(grid_size, grid_range):
 
 
 def eval_1d_basis(x, grid_starts, inv_h):
+    n_bases = len(grid_starts)
     try:
-        return bspline_basis_eager(x, grid_starts, inv_h, bounded=False).squeeze(1).double()
+        return bspline_basis_eager(x, grid_starts, inv_h, n_bases).squeeze(1).double()
     except TypeError:
-        return bspline_basis_eager(x, grid_starts, inv_h).squeeze(1).double()
+        try:
+            return bspline_basis_eager(x, grid_starts, inv_h, bounded=False).squeeze(1).double()
+        except TypeError:
+            return bspline_basis_eager(x, grid_starts, inv_h).squeeze(1).double()
 
 
 @torch.no_grad()
@@ -233,9 +237,9 @@ def main():
 
     # Evaluation grid
     Nx_eval, Ny_eval, Nt_eval = 40, 40, 40
-    x_eval = torch.linspace(0.3, Lx - 0.3, Nx_eval)
-    y_eval = torch.linspace(0.3, Ly - 0.3, Ny_eval)
-    t_eval = torch.linspace(0.2, T_max - 0.2, Nt_eval)
+    x_eval = torch.linspace(0.3, Lx - 0.3, Nx_eval, dtype=torch.float64)
+    y_eval = torch.linspace(0.3, Ly - 0.3, Ny_eval, dtype=torch.float64)
+    t_eval = torch.linspace(0.2, T_max - 0.2, Nt_eval, dtype=torch.float64)
     dx_e = (x_eval[1] - x_eval[0]).item()
     dy_e = (y_eval[1] - y_eval[0]).item()
     dt_e = (t_eval[1] - t_eval[0]).item()

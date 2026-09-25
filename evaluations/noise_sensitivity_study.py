@@ -538,9 +538,9 @@ def main():
     bp_t_d = make_basis_params(gs_t_d, (0, T_max_diff))
 
     Nx_eval_d, Ny_eval_d, Nt_eval_d = 40, 40, 30
-    x_eval_d = torch.linspace(0.3, Lx - 0.3, Nx_eval_d)
-    y_eval_d = torch.linspace(0.3, Ly - 0.3, Ny_eval_d)
-    t_eval_d = torch.linspace(0.2, T_max_diff - 0.2, Nt_eval_d)
+    x_eval_d = torch.linspace(0.3, Lx - 0.3, Nx_eval_d, dtype=torch.float64)
+    y_eval_d = torch.linspace(0.3, Ly - 0.3, Ny_eval_d, dtype=torch.float64)
+    t_eval_d = torch.linspace(0.2, T_max_diff - 0.2, Nt_eval_d, dtype=torch.float64)
     dx_eval_d = (x_eval_d[1] - x_eval_d[0]).item()
     dy_eval_d = (y_eval_d[1] - y_eval_d[0]).item()
     dt_eval_d = (t_eval_d[1] - t_eval_d[0]).item()
@@ -574,9 +574,9 @@ def main():
     bp_t_w = make_basis_params(gs_t_w, (0, T_max_wave))
 
     Nx_eval_w, Ny_eval_w, Nt_eval_w = 40, 40, 40
-    x_eval_w = torch.linspace(0.3, Lx - 0.3, Nx_eval_w)
-    y_eval_w = torch.linspace(0.3, Ly - 0.3, Ny_eval_w)
-    t_eval_w = torch.linspace(0.2, T_max_wave - 0.2, Nt_eval_w)
+    x_eval_w = torch.linspace(0.3, Lx - 0.3, Nx_eval_w, dtype=torch.float64)
+    y_eval_w = torch.linspace(0.3, Ly - 0.3, Ny_eval_w, dtype=torch.float64)
+    t_eval_w = torch.linspace(0.2, T_max_wave - 0.2, Nt_eval_w, dtype=torch.float64)
     dx_eval_w = (x_eval_w[1] - x_eval_w[0]).item()
     dy_eval_w = (y_eval_w[1] - y_eval_w[0]).item()
     dt_eval_w = (t_eval_w[1] - t_eval_w[0]).item()

@@ -263,9 +263,9 @@ def main():
 
     # Evaluation grid (avoid boundaries for finite differences)
     Nx_eval, Ny_eval, Nt_eval = 40, 40, 30
-    x_eval = torch.linspace(0.3, Lx - 0.3, Nx_eval)
-    y_eval = torch.linspace(0.3, Ly - 0.3, Ny_eval)
-    t_eval = torch.linspace(0.2, T_max - 0.2, Nt_eval)
+    x_eval = torch.linspace(0.3, Lx - 0.3, Nx_eval, dtype=torch.float64)
+    y_eval = torch.linspace(0.3, Ly - 0.3, Ny_eval, dtype=torch.float64)
+    t_eval = torch.linspace(0.2, T_max - 0.2, Nt_eval, dtype=torch.float64)
     dx_eval = (x_eval[1] - x_eval[0]).item()
     dy_eval = (y_eval[1] - y_eval[0]).item()
     dt_eval = (t_eval[1] - t_eval[0]).item()
