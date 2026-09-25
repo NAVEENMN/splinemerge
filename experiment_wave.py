@@ -70,7 +70,7 @@ def make_basis_params(grid_size, grid_range):
     n_bases = grid_size + 3
     h = (grid_range[1] - grid_range[0]) / grid_size
     inv_h = 1.0 / h
-    grid_starts = torch.arange(n_bases).float() * h + grid_range[0] - 3 * h
+    grid_starts = torch.arange(n_bases, dtype=torch.float64) * h + grid_range[0] - 3 * h
     return grid_starts, inv_h, n_bases
 
 
@@ -169,7 +169,11 @@ def recover_wave_speed(u_tt, u_xx, u_yy):
     c_sq = ATb / ATA
     if c_sq < 0:
         print(f"  WARNING: Negative c^2 = {c_sq:.6f}, physically inadmissible")
-    c_hat = np.sqrt(abs(c_sq))
+        residual = b - c_sq * laplacian
+        rmse = np.sqrt(np.mean(residual**2))
+        return float('nan'), rmse
+
+    c_hat = np.sqrt(c_sq)
     residual = b - c_sq * laplacian
     rmse = np.sqrt(np.mean(residual**2))
 
@@ -272,9 +276,9 @@ def main():
         print(f"{'='*60}")
 
         torch.manual_seed(42)
-        obs_x = torch.rand(n_obs, 1) * Lx
-        obs_y = torch.rand(n_obs, 1) * Ly
-        obs_t = torch.rand(n_obs, 1) * T_max
+        obs_x = torch.rand(n_obs, 1, dtype=torch.float64) * Lx
+        obs_y = torch.rand(n_obs, 1, dtype=torch.float64) * Ly
+        obs_t = torch.rand(n_obs, 1, dtype=torch.float64) * T_max
 
         obs_u = get_obs(obs_x, obs_y, obs_t)
         if noise_std > 0:
@@ -318,12 +322,12 @@ def main():
 
     n_per = 5000
     torch.manual_seed(42)
-    obs_x_a = torch.rand(n_per, 1) * math.pi
-    obs_y_a = torch.rand(n_per, 1) * Ly
-    obs_t_a = torch.rand(n_per, 1) * T_max
-    obs_x_b = torch.rand(n_per, 1) * math.pi + math.pi
-    obs_y_b = torch.rand(n_per, 1) * Ly
-    obs_t_b = torch.rand(n_per, 1) * T_max
+    obs_x_a = torch.rand(n_per, 1, dtype=torch.float64) * math.pi
+    obs_y_a = torch.rand(n_per, 1, dtype=torch.float64) * Ly
+    obs_t_a = torch.rand(n_per, 1, dtype=torch.float64) * T_max
+    obs_x_b = torch.rand(n_per, 1, dtype=torch.float64) * math.pi + math.pi
+    obs_y_b = torch.rand(n_per, 1, dtype=torch.float64) * Ly
+    obs_t_b = torch.rand(n_per, 1, dtype=torch.float64) * T_max
 
     u_a = torch.tensor(get_obs(obs_x_a, obs_y_a, obs_t_a), dtype=torch.float64)
     u_b = torch.tensor(get_obs(obs_x_b, obs_y_b, obs_t_b), dtype=torch.float64)

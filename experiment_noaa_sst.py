@@ -32,7 +32,7 @@ def make_basis_params(grid_size, grid_range):
     n_bases = grid_size + 3
     h = (grid_range[1] - grid_range[0]) / grid_size
     inv_h = 1.0 / h
-    grid_starts = torch.arange(n_bases).float() * h + grid_range[0] - 3 * h
+    grid_starts = torch.arange(n_bases, dtype=torch.float64) * h + grid_range[0] - 3 * h
     return grid_starts, inv_h, n_bases
 
 

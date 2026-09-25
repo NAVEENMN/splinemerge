@@ -1,15 +1,15 @@
 """
-Derivative verification: separate FD-grid error from spline-fit error.
+Derivative verification: quantify FD-grid discretization error.
 
-The paper claims sub-percent parameter recovery. This script decomposes
-the total error into two independent sources:
+This script computes two quantities:
 
   1. FD-grid error -- applying finite-difference stencils to the EXACT
      analytic field on the evaluation grid (no spline involved).
   2. Full pipeline error -- FD stencils applied to the spline-fitted
      field (what the paper actually reports).
 
-The difference between (2) and (1) isolates the spline contribution.
+These are not independent error sources: reconstruction and
+differentiation errors may reinforce or partially cancel.
 
 Uses identical grid parameters, linspace ranges, and FD stencils as
 merge_pde_wave.py and merge_pde_diffusion.py.  Self-contained: no
